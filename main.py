@@ -196,10 +196,10 @@ def notify_workflow_status(message: str):
 
 def main():
     # ⚙️ CONFIGURACIÓN
-    REPO_OWNER = "hdelafuente"
-    REPO_NAME = "github-workflow-monitor"
-    GITHUB_TOKEN = ""
-    BRANCH = "main"
+    REPO_OWNER = "<REPO_OWNER>"
+    REPO_NAME = "<REPO_NAME>"
+    GITHUB_TOKEN = "<GITHUB_TOKEN>"
+    BRANCH = "<BRANCH>"
     POLL_INTERVAL = 30
 
     # Validar configuración
