@@ -36,4 +36,18 @@ jobs:
       run: |
         python -c "import requests; print('✅ Requests library imported successfully')"
         python -c "import time; print('✅ Time module imported successfully')"
-        python -c "from datetime import datetime; print('✅ Datetime module imported successfully')" 
+        python -c "from datetime import datetime; print('✅ Datetime module imported successfully')"
+        
+    - name: Simulate long-running process
+      run: |
+        echo "⏱️  Iniciando proceso de larga duración (2 minutos)..."
+        echo "🔄 Procesando datos..."
+        
+        # Simular trabajo por 2 minutos
+        for i in {1..120}; do
+          echo "⏳ Progreso: $i/120 segundos completados"
+          sleep 1
+        done
+        
+        echo "✅ Proceso completado exitosamente!"
+        echo "📊 Tiempo total de ejecución: 2 minutos" 
