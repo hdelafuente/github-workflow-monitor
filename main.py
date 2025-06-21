@@ -1,6 +1,5 @@
 import requests
 import time
-import os
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -10,8 +9,9 @@ class GitHubActionsMonitor:
         self.repo_owner = repo_owner
         self.repo_name = repo_name
         self.headers = {
-            "Authorization": f"token {github_token}",
-            "Accept": "application/vnd.github.v3+json"
+            "Authorization": f"Bearer {github_token}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28"
         }
         self.base_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
         self.monitored_runs = {}
@@ -196,19 +196,15 @@ def notify_workflow_status(message: str):
 
 def main():
     # ⚙️ CONFIGURACIÓN
-    REPO_OWNER = os.getenv("GITHUB_REPO_OWNER")
-    REPO_NAME = os.getenv("GITHUB_REPO_NAME")
-    GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-    BRANCH = os.getenv("MONITOR_BRANCH")
-    POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "30"))
+    REPO_OWNER = "hdelafuente"
+    REPO_NAME = "github-workflow-monitor"
+    GITHUB_TOKEN = ""
+    BRANCH = "main"
+    POLL_INTERVAL = 30
 
     # Validar configuración
     if not all([REPO_OWNER, REPO_NAME, GITHUB_TOKEN]):
         print("❌ Error: Configura REPO_OWNER, REPO_NAME y GITHUB_TOKEN")
-        print("\n💡 Para obtener un token de GitHub:")
-        print("   1. Ve a GitHub → Settings → Developer settings")
-        print("   2. Personal access tokens → Generate new token")
-        print("   3. Selecciona permisos: 'repo' y 'actions:read'")
         return
 
     # Crear monitor y iniciar
